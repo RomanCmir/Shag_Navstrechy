@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шаг навстречу</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="icon" href="img\logo3.svg" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .container4 {
+        max-width: 1200px;
+        margin: 20px auto 40px;
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 10px;
+}
+
+.review-card {
+    background: #ffffff;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Добавляем плавную анимацию */
+}
+
+.review-card:hover {
+    transform: scale(1.05); /* Увеличиваем размер карточки при наведении */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Добавляем тень при наведении */
+}
+
+.rating {
+    color: #FFD700; /* Цвет золотой для звезд */
+    font-size: 1.2em; /* Увеличенный размер шрифта */
+}
+
+form {
+    margin-top: 20px;
+}
+
+form h2 {
+    margin-top: 20px;
+}
+
+select {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 95%;
+        }
+
+        textarea {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 96.5%;
+        }
+
+                @media (max-width: 600px) {
+            .review-card {
+                padding: 5px;
+            }
+
+            input, textarea {
+                font-size: 14px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+        }
+
+        .container3 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1920px; /* Максимальная ширина страницы */
+            margin: 0px auto; /* Центрирование контейнера */
+        }
+        .project-card {
+            width: calc(33.33% - 40px); /* Ширина каждой карточки */
+            margin: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background: white;
+            transition: transform 0.3s;
+            cursor: pointer; /* Курсор указывает, что элемент кликабельный */
+        }
+        .project-card:hover {
+            transform: scale(1.05); /* Эффект увеличения при наведении */
+        }
+        .project-card img {
+            width: 100%;
+            height: 200px; /* Высота изображения */
+            object-fit: cover; /* Обеспечение сохранения пропорций */
+        }
+        .project-card h3 {
+            padding: 10px;
+            font-size: 1.5em;
+            margin: 0;
+        }
+        .project-card p {
+            padding: 0 10px 10px;
+            margin: 0;
+        }
+
+        .modal {
+            display: none; /* Скрыть модальное окно по умолчанию */
+            position: fixed;
+            margin-top: 90px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            position: relative;
+            max-width: 600px;
+            margin: 120px auto;
+        }
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .modal h3 {
+            margin: 20px 0;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+            font-size: 1.5em;
+        }
+
+        @media (max-width: 1920px) {
+            .modal-content {
+            margin-top: 25%;
+        }
+        }
+
+        @media (max-width: 1440px) {
+            .modal-content {
+            margin-top: 27%;
+        }
+        }
+
+
+        @media (max-width: 1200px) {
+            .project-card {
+                width: calc(50% - 40px); /* 2 карточки в ряд на экранах до 1200px */
+            }
+
+            .modal-content {
+            margin-top: 39%;
+        }
+        }
+
+        @media (max-width: 768px) {
+            .project-card {
+                width: calc(100% - 40px); /* 1 карточка в ряд на экранах до 768px */
+            }
+
+            .modal-content {
+                padding: 10px; /* Уменьшить отступы на мобильных */
+
+            }
+            .modal h3 {
+                font-size: 1.2em; /* Уменьшить заголовок на мобильных */
+            }
+        }
+
+        @media (max-width: 375px) {
+            .modal-content {
+                padding: 10px; /* Уменьшить отступы на мобильных */
+                width: 90%; /* Ширина 90% для узких экранов */
+            }
+            .modal h3 {
+                font-size: 1.1em; /* Уменьшить заголовок еще больше на узких экранах */
+            }
+        }
+
+    </style>
+</head>
+<header>
+    <div class="container2">
+      <div class="logo">
+        <a href="index.html"><img src="img\logo3.svg" class="logo"></a>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html#main-pg">ГЛАВНАЯ</a></li>
+          <li><a href="index.html#about">О НАС</a></li>
+          <li><a href="news.html">НОВОСТИ</a></li>
+          <li><a href="projects.html">ПРОЕКТЫ</a></li>
+          <li><a href="library.html">БИБЛИОТЕКА</a></li>
+          <li style="margin-left: 100px;">
+            <a href="tel:88005553535">
+              <img src="icon\kisspng-telephone-call-mobile-phones-receiver-emai-no-bg-preview (carve.photos).png" alt="Телефон" class="icon">
+              8-911-524-18-84
+            </a>
+            <li><a href="https://yandex.ru/maps/21/vologda/house/ulitsa_chekhova_59a/Z0AYfg5nSEcPQFtjfX5xd39mZQ==/?ll=39.897128%2C59.206351&z=17" target="_blank" class="address">
+              <img src="icon\geo-location-pin-vector-icon.png" alt="Адрес" class="icon">
+              Ул. Пригородная 16б/130
+            </a></li>
+          
+        </ul>
+      </nav>  
+      <div class="burger-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+  
+  <div class="mobile-menu">
+    <nav>
+      <ul>
+        <li><a href="index.html#main-pg">ГЛАВНАЯ</a></li>
+        <li><a href="index.html#about">О НАС</a></li>
+        <li><a href="news.html">НОВОСТИ</a></li>
+        <li><a href="projects.html">ПРОЕКТЫ</a></li>
+        <li><a href="library.html">БИБЛИОТЕКА</a></li>
+          <li>
+            <a href="tel:88005553535">
+              <img src="icon\kisspng-telephone-call-mobile-phones-receiver-emai-no-bg-preview (carve.photos).png" alt="Телефон" class="icon">
+              8-911-524-18-84
+            </a>
+            <li><a href="https://yandex.ru/maps/21/vologda/house/ulitsa_chekhova_59a/Z0AYfg5nSEcPQFtjfX5xd39mZQ==/?ll=39.897128%2C59.206351&z=17" target="_blank" class="address">
+              <img src="icon\geo-location-pin-vector-icon.png" alt="Адрес" class="icon">
+              Ул. Пригородная 16б/130
+            </a></li>
+          </li>
+      </ul>
+    </nav>
+  </div>
+<body>
+<main>
+    <h2 style="margin: 90px auto;">Проекты нашего фонда</h2>
+    <div class="container3">
+        <!-- Карточка проекта 1 -->
+        <div class="project-card" onclick="openModal(1)">
+            <img src="projects-images\1.jpg" alt="Подарок к Рождеству">
+            <h3>Подарок к Рождеству</h3>
+            <p>Целью проекта является сбор средств на покупку подарков для детей из малообеспеченных семей.</p>
+        </div>
+        
+        <!-- Карточка проекта 2 -->
+        <div class="project-card" onclick="openModal(2)">
+            <img src="projects-images\2.jpg" alt="Зеленая планета">
+            <h3>Зеленая планета</h3>
+            <p>Проект направлен на озеленение общественных территорий города.</p>
+        </div>
+
+        <!-- Карточка проекта 3 -->
+        <div class="project-card" onclick="openModal(3)">
+            <img src="projects-images\3.jpg" alt="Образование для всех">
+            <h3>Образование для всех</h3>
+            <p>Этот проект ориентирован на предоставление бесплатных онлайн-уроков.</p>
+        </div>
+
+        <!-- Карточка проекта 4 -->
+        <div class="project-card" onclick="openModal(4)">
+            <img src="projects-images\4.jpg" alt="Чистая вода">
+            <h3>Чистая вода</h3>
+            <p>Цель — обеспечить доступ к чистой питьевой воде в отдаленных сельских районах.</p>
+        </div>
+
+        <!-- Карточка проекта 5 -->
+        <div class="project-card" onclick="openModal(5)">
+            <img src="projects-images\5.jpg" alt="Уютный дом">
+            <h3>Уютный дом</h3>
+            <p>Помощь бездомным: предоставление временного жилья и соцподдержки.</p>
+        </div>
+
+        <!-- Карточка проекта 6 -->
+        <div class="project-card" onclick="openModal(6)">
+            <img src="projects-images\6.jpg" alt="Спорт для всех">
+            <h3>Спорт для всех</h3>
+            <p>Организация спортивных секций для юных спортсменов из социально неблагополучных семей.</p>
+        </div>
+
+        <!-- Карточка проекта 7 -->
+        <div class="project-card" onclick="openModal(7)">
+            <img src="projects-images\7.jpg" alt="Творческие мастерские">
+            <h3>Творческие мастерские</h3>
+            <p>Предоставление возможности детям заниматься творчеством на бесплатных мастер-классах.</p>
+        </div>
+
+        <!-- Карточка проекта 8 -->
+        <div class="project-card" onclick="openModal(8)">
+            <img src="projects-images\8.jpg" alt="Доктор рядом">
+            <h3>Доктор рядом</h3>
+            <p>Обеспечение медицинской помощи и консультаций в отдаленных районах.</p>
+        </div>
+
+        <!-- Карточка проекта 9 -->
+        <div class="project-card" onclick="openModal(9)">
+            <img src="projects-images\9.jpg" alt="Кормим голодавших">
+            <h3>Кормим голодавших</h3>
+            <p>Организация питания для людей в трудной жизненной ситуации.</p>
+        </div>
+
+        <!-- Карточка проекта 10 -->
+        <div class="project-card" onclick="openModal(10)">
+            <img src="projects-images\10.jpg" alt="Социальный автобус">
+            <h3>Социальный автобус</h3>
+            <p>Бесплатный транспорт для пожилых людей и инвалидов.</p>
+        </div>
+
+        <!-- Карточка проекта 11 -->
+        <div class="project-card" onclick="openModal(11)">
+            <img src="projects-images\11.jpg" alt="Семейный уют">
+            <h3>Проект семья</h3>
+            <p>Поддержка и реабилитация семей в сложных жизненных обстоятельствах.</p>
+        </div>
+
+        <!-- Карточка проекта 12 -->
+        <div class="project-card" onclick="openModal(12)">
+            <img src="projects-images\12.jpg" alt="Культурное наследие">
+            <h3>Культурное наследие</h3>
+            <p>Сохранение и популяризация местных традиций и культурного наследия.</p>
+        </div>
+    </div>
+
+    <!-- Модальные окна для проектов -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modal-body">
+                <img id="modal-image" src="" alt="">
+                <h3 id="modal-title"></h3>
+                <p id="modal-description"></p>
+                <div id="additional-images"></div> <!-- Дополнительные изображения -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Отзывы -->
+
+    <div class="container4">
+        <h1>Отзывы о нашем фонде</h1>
+        <div id="reviews-container" class="reviews-grid">
+            <div class="review-card">
+                <div class="rating">★★★★★</div>
+                <p><strong>Анна:</strong><br> Этот фонд действительно изменил мою жизнь. Спасибо за вашу работу!</p>
+            </div>
+            <div class="review-card">
+                <div class="rating">★★★★☆</div>
+                <p><strong>Иван:</strong><br> Очень благодарен за помощь, которую я получил.</p>
+            </div>
+            <div class="review-card">
+                <div class="rating">★★★★★</div>
+                <p><strong>Мария:</strong><br> От всей души рекомендую этот фонд всем!</p>
+            </div>
+        </div>
+        
+        <form id="review-form">
+            <h2>Оставьте ваш отзыв</h2>
+            <input type="text" id="name" placeholder="Ваше имя" required>
+            <textarea id="review" placeholder="Ваш отзыв" required></textarea>
+            <label for="rating">Ваша оценка:</label>
+            <select id="rating">
+                <option value="5">★★★★★</option>
+                <option value="4">★★★★☆</option>
+                <option value="3">★★★☆☆</option>
+                <option value="2">★★☆☆☆</option>
+                <option value="1">★☆☆☆☆</option>
+            </select>
+            <button type="submit">Отправить отзыв</button>
+        </form>
+    </div>
+
+
+    <!-- Раздел "Пожертвования" -->
+
+    <section class="donations" id="donate" name="donate">
+        <div class="container">
+            <h2>Поддержите наш фонд</h2>
+            <p>Ваши пожертвования помогают нам продолжать нашу работу и поддерживать тех, кто в этом нуждается. Выберите удобный для вас способ пожертвования:</p>
+    
+            <div class="donation-options">
+                <div class="donation-option">
+                    <h3>Ежемесячное пожертвование</h3>
+                    <p>Станьте спонсором и поддержите нас ежемесячно.</p>
+                    <div class="payment-icons">
+                      <img src="icon\visa.png" alt="Visa" />
+                      <img src="icon\master-card.png" alt="Mastercard" />
+                      <img src="icon\paypal.png" alt="PayPal" />
+                  </div>
+                    <input type="number" placeholder="Введите сумму" />
+                    <button class="btn">Пожертвовать</button>
+                </div>
+                <div class="donation-option">
+                    <h3>Разовое пожертвование</h3>
+                    <p>Поддержите нас единовременно в любой удобный момент.</p>
+                    <div class="payment-icons">
+                      <img src="icon\visa.png" alt="Visa" />
+                      <img src="icon\master-card.png" alt="Mastercard" />
+                      <img src="icon\paypal.png" alt="PayPal" />
+                  </div>
+                    <input type="number" placeholder="Введите сумму" />
+                    <button class="btn">Пожертвовать</button>
+                </div>
+                <div class="donation-option">
+                    <h3>Пожертвование на определенный проект</h3>
+                    <p>Вы можете выбрать проект, который хотите поддержать.</p>
+                    <div class="payment-icons">
+                      <img src="icon\visa.png" alt="Visa" />
+                      <img src="icon\master-card.png" alt="Mastercard" />
+                      <img src="icon\paypal.png" alt="PayPal" />
+                  </div>
+                    <select>
+                        <option value="project1">Проект "Подарок к Рождеству"</option>
+                        <option value="project2">Проект "Зеленая планета"</option>
+                        <option value="project3">Проект "Образование для всех"</option>
+                        <option value="project4">Проект "Чистая вода"</option>
+                        <option value="project5">Проект "Спорт для всех"</option>
+                        <option value="project6">Проект "Творческие мастерские"</option>
+                        <option value="project7">Проект "Доктор рядом"</option>
+                        <option value="project8">Проект "Кормим голодавших"</option>
+                        <option value="project9">Проект "Социальный автобус"</option>
+                        <option value="project10">Проект "Проект семья"</option>
+                        <option value="project11">Проект "Культурное наследие"</option>
+                        <option value="project12">Проект "Уютный дом"</option>
+                    </select>
+                    <input type="number" placeholder="Введите сумму" />
+                    <button class="btn">Пожертвовать</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="btn-up btn-up_hide"></div>
+    
+    
+</main>
+
+<script>
+        const btnUp = {
+      el: document.querySelector('.btn-up'),
+      show() {
+        // удалим у кнопки класс btn-up_hide
+        this.el.classList.remove('btn-up_hide');
+      },
+      hide() {
+        // добавим к кнопке класс btn-up_hide
+        this.el.classList.add('btn-up_hide');
+      },
+      addEventListener() {
+        // при прокрутке содержимого страницы
+        window.addEventListener('scroll', () => {
+          // определяем величину прокрутки
+          const scrollY = window.scrollY || document.documentElement.scrollTop;
+          // если страница прокручена больше чем на 400px, то делаем кнопку видимой, иначе скрываем
+          scrollY > 200 ? this.show() : this.hide();
+        });
+        // при нажатии на кнопку .btn-up
+        document.querySelector('.btn-up').onclick = () => {
+          // переместим в начало страницы
+          window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+          });
+        }
+      }
+    }   
+    btnUp.addEventListener();
+
+    function openModal(projectId) {
+        const modal = document.getElementById('modal');
+        const title = document.getElementById('modal-title');
+        const description = document.getElementById('modal-description');
+        const image = document.getElementById('modal-image');
+        const additionalImages = document.getElementById('additional-images');
+
+        // Очищаем дополнительные изображения
+        additionalImages.innerHTML = '';
+
+        switch (projectId) {
+            case 1:
+                title.textContent = 'Подарок к Рождеству';
+                description.textContent = 'Целью проекта является сбор средств на покупку подарков для детей из малообеспеченных семей. В рамках инициативы организуем благотворительные ярмарки и сборы средств в различных учреждениях.';
+                image.src = 'project1.jpg';
+                additionalImages.innerHTML = `
+                    <img src="projects-images/project1_1.jpg" alt="Доп. изображение 1"> 
+                    <img src="projects-images/project1_2.jpg" alt="Доп. изображение 2"> 
+                    <img src="projects-images/project1_3.jpg" alt="Доп. изображение 3"> 
+                `;
+                break;
+            case 2:
+                title.textContent = 'Зеленая планета';
+                description.textContent = 'Проект направлен на озеленение общественных территорий города. Мы сотрудничаем с местными школами и сообществами, высаживая деревья и цветы в парках и скверах.';
+                image.src = 'project2.jpg';
+                additionalImages.innerHTML = `
+                    <img src="projects-images/project2_1.jpg" alt="Доп. изображение 1"> 
+                    <img src="projects-images/project2_2.jpg" alt="Доп. изображение 2"> 
+                    <img src="projects-images/project2_3.jpg" alt="Доп. изображение 3"> 
+                `;
+                break;
+            case 3:
+                title.textContent = 'Образование для всех';
+                description.textContent = 'Этот проект ориентирован на предоставление бесплатных онлайн-уроков и дополнительных занятий для детей из неполных и неблагополучных семей. Мы собираем преподавателей-добровольцев для помощи в учебе.';
+                image.src = 'project3.jpg';
+                additionalImages.innerHTML = `
+                    <img src="projects-images/project3_1.jpg" alt="Доп. изображение 1"> 
+                    <img src="projects-images/project3_2.jpg" alt="Доп. изображение 2"> 
+                    <img src="projects-images/project3_3.jpg" alt="Доп. изображение 3"> 
+                `;
+                break;
+            case 4:
+                title.textContent = 'Чистая вода';
+                description.textContent = 'Цель — обеспечить доступ к чистой питьевой воде в отдаленных сельских районах. Мы организуем установку водозаборных колонок и очистительных фильтров.';
+                image.src = 'project4.jpg';
+                additionalImages.innerHTML = `
+                    <img src="projects-images/project4_1.jpg" alt="Доп. изображение 1"> 
+                    <img src="projects-images/project4_2.jpg" alt="Доп. изображение 2"> 
+                    <img src="projects-images/project4_3.jpg" alt="Доп. изображение 3"> 
+                `;
+                break;
+            case 5:
+                title.textContent = 'Уютный дом';
+                description.textContent = 'В рамках этого проекта осуществляется помощь бездомным: предоставление временного жилья, одежды и гигиенических принадлежностей, а также помощь в трудоустройстве.';
+                image.src = 'project5.jpg';
+                additionalImages.innerHTML = `
+                    <img src="projects-images/project5_1.jpg" alt="Доп. изображение 1">
+                    <img src="projects-images/project5_2.jpg" alt="Доп. изображение 2"> 
+                    <img src="projects-images/project5_3.jpg" alt="Доп. изображение 3"> 
+                `;
+                break;
+            case 6:
+                title.textContent = 'Спорт для всех';
+                description.textContent = 'Мы организуем спортивные секции для юных спортсменов из социально неблагополучных семей, предоставляя бесплатные тренировки и спортивное оборудование.';
+                image.src = 'project6.jpg';
+                additionalImages.innerHTML = `
+                    <img src="projects-images/project6_1.jpg" alt="Доп. изображение 1"> 
+                    <img src="projects-images/project6_2.jpg" alt="Доп. изображение 2"> 
+                    <img src="projects-images/project6_3.jpg" alt="Доп. изображение 3"> 
+                `;
+                break;
+            case 7:
+                title.textContent = 'Творческие мастерские';
+                description.textContent = 'Предоставление возможности детям из малообеспеченных семей заниматься творчеством на бесплатных мастер-классах по рисованию, лепке и другим видам искусства.';
+                image.src = 'project7.jpg';
+                additionalImages.innerHTML = `
+                    <img src="projects-images/project7_1.jpg" alt="Доп. изображение 1"> 
+                    <img src="projects-images/project7_2.jpg" alt="Доп. изображение 2"> 
+                    <img src="projects-images/project7_3.jpg" alt="Доп. изображение 3"> 
+                `;
+                break;
+            case 8:
+                title.textContent = 'Доктор рядом';
+                description.textContent = 'Цель — обеспечить медицинскую помощь и консультации в отдаленных районах. Мы организуем выездные бригады врачей для оказания необходимой помощи.';
+                image.src = 'project8.jpg';
+                additionalImages.innerHTML = `
+                    <img src="projects-images/project8_1.jpg" alt="Доп. изображение 1"> 
+                    <img src="projects-images/project8_2.jpg" alt="Доп. изображение 2"> 
+                    <img src="projects-images/project8_3.jpg" alt="Доп. изображение 3"> 
+                `;
+                break;
+            case 9:
+                title.textContent = 'Кормим голодавших';
+                description.textContent = 'Этот проект посвящен организации питания для людей в трудной жизненной ситуации. Мы собираем продукты и готовим горячие обеды для нуждающихся.';
+                image.src = 'project9.jpg';
+                additionalImages.innerHTML = `
+                    <img src="projects-images/project9_1.jpg" alt="Доп. изображение 1"> 
+                    <img src="projects-images/project9_2.jpg" alt="Доп. изображение 2"> 
+                    <img src="projects-images/project9_3.jpg" alt="Доп. изображение 3"> 
+                `;
+                break;
+            case 10:
+                title.textContent = 'Социальный автобус';
+                description.textContent = 'Проект предоставляет бесплатный транспорт для пожилых людей и инвалидов, чтобы они могли добраться до медицинских учреждений и социальных служб.';
+                image.src = 'project10.jpg';
+                additionalImages.innerHTML = `
+                    <img src="projects-images/project10_1.jpg" alt="Доп. изображение 1"> 
+                    <img src="projects-images/project10_2.jpg" alt="Доп. изображение 2"> 
+                    <img src="projects-images/project10_3.jpg" alt="Доп. изображение 3"> 
+                `;
+                break;
+            case 11:
+                title.textContent = 'Семейный уют';
+                description.textContent = 'Поддержка и реабилитация семей, находящихся в сложных жизненных обстоятельствах. Мы предлагаем консультации социальных работников и психологов, а также помощь в получении государственной помощи.';
+                image.src = 'project11.jpg';
+                additionalImages.innerHTML = `
+                    <img src="projects-images/project11_1.jpg" alt="Доп. изображение 1"> 
+                    <img src="projects-images/project11_2.jpg" alt="Доп. изображение 2"> 
+                    <img src="projects-images/project11_3.jpg" alt="Доп. изображение 3"> 
+                `;
+                break;
+            case 12:
+                title.textContent = 'Культурное наследие';
+                description.textContent = 'Проект по сохранению и популяризации местных традиций и культурного наследия. Мы организуем фестивали, выставки и мастер-классы для широкой общественности.';
+                image.src = 'project12.jpg';
+                additionalImages.innerHTML = `
+                    <img src="projects-images/project12_1.jpg" alt="Доп. изображение 1"> 
+                    <img src="projects-images/project12_2.jpg" alt="Доп. изображение 2"> 
+                    <img src="projects-images/project12_3.jpg" alt="Доп. изображение 3"> 
+                `;
+                break;
+        }
+
+        modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var burgerMenu = document.querySelector('.burger-menu');
+      var mobileMenu = document.querySelector('.mobile-menu');
+    
+      burgerMenu.addEventListener('click', function() {
+        this.classList.toggle('active');
+        mobileMenu.classList.toggle('show');
+      });
+    
+      // Закрываем мобильное меню, если размер окна увеличивается
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 768 && mobileMenu.classList.contains('show')) {
+          mobileMenu.classList.remove('show');
+          burgerMenu.classList.remove('active');
+        }
+      });
+    });
+
+    document.getElementById('review-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+    const name = document.getElementById('name').value;
+    const reviewText = document.getElementById('review').value;
+    const ratingValue = document.getElementById('rating').value;
+
+    // Определяем звездочки на основе выбранной оценки
+    const stars = '★'.repeat(ratingValue) + '☆'.repeat(5 - ratingValue);
+
+    // Создаем новый элемент отзыва
+    const reviewDiv = document.createElement('div');
+    reviewDiv.className = 'review-card';
+    reviewDiv.innerHTML = `<div class="rating">${stars}</div><p><strong>${name}:</strong><br> ${reviewText}</p>`;
+
+    // Добавляем новый отзыв в контейнер
+    document.getElementById('reviews-container').appendChild(reviewDiv);
+
+    // Очищаем форму
+    document.getElementById('review-form').reset();
+});
+</script>
+</body>
+
+<footer>
+    <div class="footer-content">
+      <nav class="footer-nav">
+        <a href="index.html#main-pg">ГЛАВНАЯ</a>
+        <a href="index.html#about">О НАС</a>
+        <a href="news.html">НОВОСТИ</a>
+        <a href="projects.html">ПРОЕКТЫ</a>
+        <a href="library.html">БИБЛИОТЕКА</a>
+      </nav>
+      <div class="contact-info">
+        <a href="tel:+88005553535">
+          <img src="icon\kisspng-telephone-call-mobile-phones-receiver-emai-no-bg-preview (carve.photos).png" alt="Phone" class="icon">
+          8-911-524-18-84
+        </a>
+        <a href="https://yandex.ru/maps/21/vologda/house/ulitsa_chekhova_59a/Z0AYfg5nSEcPQFtjfX5xd39mZQ==/?ll=39.897128%2C59.206351&z=17" target="_blank">
+          <img src="icon\geo-location-pin-vector-icon.png" alt="Email" class="icon">
+          Ул. Пригородная 16б/130
+        </a>
+      </div>
+      <div class="social-links">
+        <a href="https://vk.com/club181046361" target="_blank">
+          <img src="icon\vk-icon.png" alt="VK" class="icon">
+        </a>
+      </div>
+    </div>
+  </footer>
+</html>

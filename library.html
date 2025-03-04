@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шаг навстречу</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="icon" href="img\logo3.svg" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <style>
+/* Стили для библиотеки */
+.library-section {
+    padding: 20px 0;
+    background-color: #f9f9f9;
+    margin-top: 100px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.filter {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.books-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.book-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px;
+    padding: 15px;
+    text-align: center;
+}
+
+.book-card img {
+    width: 150px; /* Фиксированная ширина */
+    height: 225px; /* Фиксированная высота */
+    object-fit: cover; /* Обрезка изображения, чтобы сохранить пропорции */
+}
+
+.book-card h3 {
+    margin: 10px 0;
+}
+
+.book-card p {
+    margin: 5px 0;
+}
+
+.btn-details {
+    display: inline-block;
+    margin-top: 10px; /* Отступ сверху */
+    padding: 10px 15px; /* Отступы внутри кнопки */
+    background-color: #4CAF50; /* Цвет фона */
+    color: white; /* Цвет текста */
+    border: none; /* Без рамки */
+    border-radius: 5px; /* Скруглённые края */
+    cursor: pointer; /* Указатель при наведении */
+}
+
+.btn-details:hover {
+    background-color: #45a049; /* Более тёмный цвет при наведении */
+}
+
+/* Стили для модального окна */
+.modal {
+    display: none; /* Скрываем модальное окно по умолчанию */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto; /* Изменено с 15% на 10% для лучшего выравнивания */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.modal-content img {
+    width: 100%; /* Изображение в модальном окне занимает 100% ширины */
+    height: auto; /* Высота автоматически подстраивается */
+    max-width: 300px; /* Максимальная ширина изображения в модальном окне */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Адаптивные стили */
+@media (max-width: 1024px) {
+    .books-gallery {
+        gap: 15px;
+    }
+
+    .book-card {
+        width: 100%; /* Ширина карточек на планшетах 100% */
+        max-width: 300px; /* Максимальная ширина 300px */
+    }
+}
+
+@media (max-width: 768px) {
+    .filter {
+        flex-direction: column; /* Фильтры в одну колонку */
+        align-items: center;
+    }
+
+    .books-gallery {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 320px) {
+    .modal-content {
+        width: 90%; /* Меняем ширину модального окна для мобильных */
+    }
+}
+    </style>
+</head>
+<header>
+    <div class="container2">
+      <div class="logo">
+        <a href="index.html"><img src="img\logo3.svg" class="logo"></a>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html#main-pg">ГЛАВНАЯ</a></li>
+          <li><a href="index.html#about">О НАС</a></li>
+          <li><a href="news.html">НОВОСТИ</a></li>
+          <li><a href="projects.html">ПРОЕКТЫ</a></li>
+          <li><a href="library.html">БИБЛИОТЕКА</a></li>
+          <li style="margin-left: 100px;">
+            <a href="tel:88005553535">
+              <img src="icon\kisspng-telephone-call-mobile-phones-receiver-emai-no-bg-preview (carve.photos).png" alt="Телефон" class="icon">
+              8-911-524-18-84
+            </a>
+            <li><a href="https://yandex.ru/maps/21/vologda/house/ulitsa_chekhova_59a/Z0AYfg5nSEcPQFtjfX5xd39mZQ==/?ll=39.897128%2C59.206351&z=17" target="_blank" class="address">
+              <img src="icon\geo-location-pin-vector-icon.png" alt="Адрес" class="icon">
+              Ул. Пригородная 16б/130
+            </a></li>
+          
+        </ul>
+      </nav>  
+      <div class="burger-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+  
+  <div class="mobile-menu">
+    <nav>
+      <ul>
+        <li><a href="index.html#main-pg">ГЛАВНАЯ</a></li>
+        <li><a href="index.html#about">О НАС</a></li>
+        <li><a href="news.html">НОВОСТИ</a></li>
+        <li><a href="projects.html">ПРОЕКТЫ</a></li>
+        <li><a href="library.html">БИБЛИОТЕКА</a></li>
+          <li>
+            <a href="tel:88005553535">
+              <img src="icon\kisspng-telephone-call-mobile-phones-receiver-emai-no-bg-preview (carve.photos).png" alt="Телефон" class="icon">
+              8-911-524-18-84
+            </a>
+            <li><a href="https://yandex.ru/maps/21/vologda/house/ulitsa_chekhova_59a/Z0AYfg5nSEcPQFtjfX5xd39mZQ==/?ll=39.897128%2C59.206351&z=17" target="_blank" class="address">
+              <img src="icon\geo-location-pin-vector-icon.png" alt="Адрес" class="icon">
+              Ул. Пригородная 16б/130
+            </a></li>
+          </li>
+      </ul>
+    </nav>
+  </div>
+<body>
+<main>
+    <section class="library-section">
+        <div class="container">
+            <h2>Библиотека</h2>
+    
+            <div class="filter">
+                <label for="sort-alphabet">Сортировка по алфавиту:</label>
+                <select id="sort-alphabet" onchange="sortBooks()">
+                    <option value="default">Выберите...</option>
+                    <option value="asc">А-Я</option>
+                    <option value="desc">Я-А</option>
+                </select>
+    
+                <label for="sort-date">Сортировка по дате добавления:</label>
+                <select id="sort-date" onchange="sortBooks()">
+                    <option value="default">Выберите...</option>
+                    <option value="newest">Сначала новые</option>
+                    <option value="oldest">Сначала старые</option>
+                </select>
+            </div>
+    
+            <div class="books-gallery" id="booksGallery">
+                <div class="book-card" data-title="Психология человека" data-author="В.И. Свободчиков. Е.И. Исаев" data-description="Книга рассказывает о том, как устроен человек с точки зрения психологии" data-date="2023-03-01" data-link="https://example.com/book1">
+                    <img src="books-img\book1.jpg" alt="Книга 1">
+                    <h3>Психология человека</h3>
+                    <p>В.И. Свободчиков. Е.И. Исаев</p>
+                    <p>Дата добавления: 01.03.2023</p>
+                    <button class="btn-details" onclick="openModal(this)">Подробнее</button>
+                </div>
+                <div class="book-card" data-title="Психология влияния и обмана" data-author="А.Е. Смородин" data-description="Книга о влиянии обмана на жизнь человека" data-date="2023-01-28" data-link="https://example.com/book3">
+                    <img src="books-img\book3.jpg" alt="">
+                    <h3>Психология влияния и обмана</h3>
+                    <p>А.Е. Смородин</p>
+                    <p>Дата добавления: 28.01.2023</p>
+                    <button class="btn-details" onclick="openModal(this)">Подробнее</button>
+                </div>
+                <div class="book-card" data-title="Психологические проблемы современных подростков" data-author="Е.В. Емельянова" data-description="Книга о проблемах современных подростков и способах их решения" data-date="2023-02-15" data-link="https://example.com/book2">
+                    <img src="books-img\book2.jpg" alt="Книга 2">
+                    <h3>Психологические проблемы современных подростков</h3>
+                    <p>Е.В. Емельянова</p>
+                    <p>Дата добавления: 15.02.2023</p>
+                    <button class="btn-details" onclick="openModal(this)">Подробнее</button>
+                </div>
+                <!-- Можно добавить больше карточек книг по желанию -->
+            </div>
+        </div>
+    
+        <!-- Модальное окно -->
+       <!-- Модальное окно -->
+    <div class="modal" id="bookModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal(event)">&times;</span>
+            <img id="modalImage" src="" alt="">
+            <h3 id="modalTitle"></h3>
+            <p id="modalAuthor"></p>
+            <p id="modalDescription"></p>
+            <p id="modalDate"></p>
+            <a id="modalLink" href="" target="_blank">Ссылка на электронную библиотеку</a>
+        </div>
+    </div>
+    </section>
+</main>
+
+<script>
+function openModal(button) {
+    const card = button.parentElement;
+    const title = card.getAttribute('data-title');
+    const author = card.getAttribute('data-author');
+    const description = card.getAttribute('data-description');
+    const date = card.getAttribute('data-date');
+    const link = card.getAttribute('data-link');
+    const image = card.querySelector('img').src;
+
+    document.getElementById('modalTitle').innerText = title;
+    document.getElementById('modalAuthor').innerText = `Автор: ${author}`;
+    document.getElementById('modalDescription').innerText = description;
+    document.getElementById('modalDate').innerText = `Дата добавления: ${date}`;
+    document.getElementById('modalLink').href = link;
+    document.getElementById('modalImage').src = image;
+
+    document.getElementById('bookModal').style.display = 'block';
+}
+
+function closeModal(event) {
+    if (event.target === document.getElementById('bookModal') || event.target.classList.contains('close')) {
+        document.getElementById('bookModal').style.display = 'none';
+    }
+}
+
+function sortBooks() {
+    const gallery = document.getElementById('booksGallery');
+    const cards = Array.from(gallery.children);
+    const alphabetSort = document.getElementById('sort-alphabet').value;
+    const dateSort = document.getElementById('sort-date').value;
+
+    // Проверка на сортировку по алфавиту
+    if (alphabetSort !== 'default') {
+        cards.sort((a, b) => {
+            const titleA = a.getAttribute('data-title').toLowerCase().trim(); // Приведение к нижнему регистру и удаление пробелов
+            const titleB = b.getAttribute('data-title').toLowerCase().trim();
+
+            return alphabetSort === 'asc' 
+                ? titleA.localeCompare(titleB, 'ru') 
+                : titleB.localeCompare(titleA, 'ru');
+        });
+    }
+
+    // Сортировка по дате
+    if (dateSort !== 'default') {
+        cards.sort((a, b) => {
+            const dateA = new Date(a.getAttribute('data-date'));
+            const dateB = new Date(b.getAttribute('data-date'));
+            return dateSort === 'newest' ? dateB - dateA : dateA - dateB;
+        });
+    }
+
+    // Обновляем отображение карточек
+    gallery.innerHTML = '';
+    cards.forEach(card => gallery.appendChild(card));
+}
+</script>
+
+</body>
+
+<div class="btn-up btn-up_hide"></div>
+
+<footer>
+    <div class="footer-content">
+      <nav class="footer-nav">
+        <a href="index.html#main-pg">ГЛАВНАЯ</a>
+        <a href="index.html#about">О НАС</a>
+        <a href="news.html">НОВОСТИ</a>
+        <a href="projects.html">ПРОЕКТЫ</a>
+        <a href="library.html">БИБЛИОТЕКА</a>
+      </nav>
+      <div class="contact-info">
+        <a href="tel:+88005553535">
+          <img src="icon\kisspng-telephone-call-mobile-phones-receiver-emai-no-bg-preview (carve.photos).png" alt="Phone" class="icon">
+          8-911-524-18-84
+        </a>
+        <a href="https://yandex.ru/maps/21/vologda/house/ulitsa_chekhova_59a/Z0AYfg5nSEcPQFtjfX5xd39mZQ==/?ll=39.897128%2C59.206351&z=17" target="_blank">
+          <img src="icon\geo-location-pin-vector-icon.png" alt="Email" class="icon">
+          Ул. Пригородная 16б/130
+        </a>
+      </div>
+      <div class="social-links">
+        <a href="https://vk.com/club181046361" target="_blank">
+          <img src="icon\vk-icon.png" alt="VK" class="icon">
+        </a>
+      </div>
+    </div>
+  </footer>
+</html>
